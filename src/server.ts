@@ -41,6 +41,31 @@ app.post('/api/users/', async (req: Request, res: Response) => {
     res.send(createUser)
 })
 
+app.put('/api/users/:id', async (req: Request, res: Response) => {
+    const updateUser = {
+        data: await prisma.user.update({
+            where: {
+                id: req.params.id as string
+            },
+            data: req.body
+        })
+    }
+
+    res.send(updateUser)
+})
+
+app.delete('/api/users/:id', async (req: Request, res: Response) => {
+    const deleteUser = {
+        data: await prisma.user.delete({
+            where: {
+                id: req.params.id as string
+            },
+        })
+    }
+
+    res.send(deleteUser)
+})
+
 app.get('/*', (req: Request, res: Response) => {
     res.send('Please look at the documentation in Github.')
 })
