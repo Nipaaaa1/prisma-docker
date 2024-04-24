@@ -11,7 +11,6 @@ const prisma = new PrismaClient()
 app.use(cors())
 app.use(express.json())
 
-
 app.get('/api/users/', async (req: Request, res: Response) => {
     const getAllUsers = {
         data: await prisma.user.findMany()
@@ -30,6 +29,16 @@ app.get('/api/users/:id', async (req: Request, res: Response) => {
     }
 
     res.send(getOneUser)
+})
+
+app.post('/api/users/', async (req: Request, res: Response) => {
+    const createUser = {
+        data: await prisma.user.create({
+            data: req.body
+        })
+    }
+
+    res.send(createUser)
 })
 
 app.get('/*', (req: Request, res: Response) => {
