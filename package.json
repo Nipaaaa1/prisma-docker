@@ -7,7 +7,9 @@
     "start": "node ./dist/server.js",
     "dev": "tsx watch ./src/server.ts",
     "build": "tsc --build",
-    "lint": "eslint ./src/**"
+    "lint:check": "eslint ./src/**",
+    "lint:fix": "eslint --fix ./src/**",
+    "format": "prettier . --write"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +20,9 @@
     "@types/express": "^4.17.21",
     "@types/node": "^20.12.7",
     "eslint": "^9.1.1",
+    "eslint-config-prettier": "^9.1.0",
     "globals": "^15.0.0",
+    "prettier": "^3.2.5",
     "prisma": "^5.13.0",
     "tsx": "^4.7.2",
     "typescript": "^5.4.5",
