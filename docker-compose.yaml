@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  api:
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/prismadb?schema=public
+    networks:
+      - api-networks
+  db:
+    image: postgres:16-alpine
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+    environment:
+      POSTGRES_DB: prismadb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - api-networks
+
+volumes:
+  pgdata:
+networks:
+  api-networks:
