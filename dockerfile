@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20-alpine as build
 
 RUN corepack enable
 
@@ -6,12 +6,18 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 COPY . .
 
-EXPOSE 3000
-
 RUN pnpm prisma generate
 
-CMD ["pnpm", "dev"]
+RUN pnpm build
+
+FROM node:20-slim
+
+COPY --from=build /app/dist /app/dist
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
