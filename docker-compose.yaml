@@ -1,7 +1,8 @@
 version: "3.9"
 services:
   api:
-    build: .
+    build:
+      target: .
     ports:
       - 3000:3000
     depends_on:
