@@ -1,8 +1,9 @@
-version: "3.9"
+version: "3.8"
 services:
   api:
     build:
-      target: .
+      context: .
+      dockerfile: .
     ports:
       - 3000:3000
     depends_on:
